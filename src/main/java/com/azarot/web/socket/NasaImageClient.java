@@ -17,7 +17,7 @@ public class NasaImageClient {
     }
 
     public static Image findLargestImage(URL url) {
-        Socket socket = openSslSocket(url);
+        var socket = openSslSocket(url);
         List<Image> images = getImages(socket, url);
         return findLargestImage(images);
     }
