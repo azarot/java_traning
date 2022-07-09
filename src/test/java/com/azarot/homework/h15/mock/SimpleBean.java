@@ -1,7 +1,7 @@
 package com.azarot.homework.h15.mock;
 
-import com.azarot.homework.h15.Bean;
+import com.azarot.homework.h15.BoboBean;
 
-@Bean
+@BoboBean
 public class SimpleBean {
 }
