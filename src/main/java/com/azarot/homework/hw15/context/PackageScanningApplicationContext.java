@@ -1,8 +1,8 @@
-package com.azarot.homework.h15.context;
+package com.azarot.homework.hw15.context;
 
-import com.azarot.homework.h15.annotation.BoboBean;
-import com.azarot.homework.h15.exception.NoSuchBeanException;
-import com.azarot.homework.h15.exception.NoUniqueBeanException;
+import com.azarot.homework.hw15.annotation.BoboBean;
+import com.azarot.homework.hw15.exception.NoSuchBeanException;
+import com.azarot.homework.hw15.exception.NoUniqueBeanException;
 import org.reflections.Reflections;
 
 import java.lang.reflect.Constructor;

@@ -1,6 +1,6 @@
-package com.azarot.homework.h15.mock;
+package com.azarot.homework.hw15.mock;
 
-import com.azarot.homework.h15.annotation.BoboBean;
+import com.azarot.homework.hw15.annotation.BoboBean;
 
 @BoboBean
 public class HowAreYouService implements TalkingService {

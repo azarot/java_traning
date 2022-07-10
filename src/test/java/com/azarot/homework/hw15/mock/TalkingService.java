@@ -1,4 +1,4 @@
-package com.azarot.homework.h15.mock;
+package com.azarot.homework.hw15.mock;
 
 public interface TalkingService {
     void talk();

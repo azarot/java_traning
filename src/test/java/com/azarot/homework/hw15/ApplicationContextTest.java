@@ -1,13 +1,13 @@
-package com.azarot.homework.h15;
+package com.azarot.homework.hw15;
 
 
-import com.azarot.homework.h15.context.PackageScanningApplicationContext;
-import com.azarot.homework.h15.exception.NoSuchBeanException;
-import com.azarot.homework.h15.exception.NoUniqueBeanException;
-import com.azarot.homework.h15.mock.HelloService;
-import com.azarot.homework.h15.mock.HowAreYouService;
-import com.azarot.homework.h15.mock.TalkingService;
-import com.azarot.homework.h15.mock.Utils;
+import com.azarot.homework.hw15.context.PackageScanningApplicationContext;
+import com.azarot.homework.hw15.exception.NoSuchBeanException;
+import com.azarot.homework.hw15.exception.NoUniqueBeanException;
+import com.azarot.homework.hw15.mock.HelloService;
+import com.azarot.homework.hw15.mock.HowAreYouService;
+import com.azarot.homework.hw15.mock.TalkingService;
+import com.azarot.homework.hw15.mock.Utils;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
