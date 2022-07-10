@@ -1,6 +1,6 @@
 package com.azarot.homework.h15.context;
 
-import com.azarot.homework.h15.BoboBean;
+import com.azarot.homework.h15.annotation.BoboBean;
 import com.azarot.homework.h15.exception.NoSuchBeanException;
 import com.azarot.homework.h15.exception.NoUniqueBeanException;
 import org.reflections.Reflections;

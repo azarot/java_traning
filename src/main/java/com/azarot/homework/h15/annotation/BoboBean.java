@@ -1,4 +1,4 @@
-package com.azarot.homework.h15;
+package com.azarot.homework.h15.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
