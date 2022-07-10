@@ -1,4 +1,4 @@
-package com.azarot.homework.h15.errormock;
+package com.azarot.homework.h15.nodefaultconstructor;
 
 import com.azarot.homework.h15.annotation.BoboBean;
 

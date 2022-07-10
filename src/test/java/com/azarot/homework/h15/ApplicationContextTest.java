@@ -8,24 +8,34 @@ import com.azarot.homework.h15.mock.HelloService;
 import com.azarot.homework.h15.mock.HowAreYouService;
 import com.azarot.homework.h15.mock.TalkingService;
 import com.azarot.homework.h15.mock.Utils;
+import com.azarot.homework.h15.mock.inner.WhatsUpService;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ApplicationContextTest {
 
-    public static final String MOCK_PACKAGE = "com.azarot.homework.h15.mock";
-    public static final String ERROR_MOCK_PACKAGE = "com.azarot.homework.h15.errormock";
+    private static final String MOCK_PACKAGE = "com.azarot.homework.h15.mock";
+    private static final String NO_DEFAULT_CONSTRUCTOR_PACKAGE = "com.azarot.homework.h15.nodefaultconstructor";
+    private static final String NO_SUCH_BEAN_TO_INJECT_PACKAGE = "com.azarot.homework.h15.nosuchbeantoinject";
+    private static final String NO_UNIQUE_BEAN_TO_INJECT_PACKAGE = "com.azarot.homework.h15.nouniquebeantoinject";
 
     @Test
     public void shouldThrowExceptionIfBeanDoesNotHaveDefaultConstructor() {
-        assertThrows(RuntimeException.class, () -> new PackageScanningApplicationContext(ERROR_MOCK_PACKAGE));
+        assertThrows(RuntimeException.class, () -> new PackageScanningApplicationContext(NO_DEFAULT_CONSTRUCTOR_PACKAGE));
     }
 
     @Test
     public void shouldFindBeanByType() {
         var applicationContext = new PackageScanningApplicationContext(MOCK_PACKAGE);
         HelloService bean = applicationContext.getBean(HelloService.class);
+        assertNotNull(bean);
+    }
+
+    @Test
+    public void shouldFindBeanByTypeInInnerPackage() {
+        var applicationContext = new PackageScanningApplicationContext(MOCK_PACKAGE);
+        var bean = applicationContext.getBean(WhatsUpService.class);
         assertNotNull(bean);
     }
 
@@ -81,5 +91,30 @@ public class ApplicationContextTest {
         var context = new PackageScanningApplicationContext(MOCK_PACKAGE);
         var allBeans = context.getAllBeans(Utils.class);
         assertEquals(0, allBeans.size());
+    }
+
+    @Test
+    public void shouldInjectWithSetter() {
+        var applicationContext = new PackageScanningApplicationContext(MOCK_PACKAGE);
+        var bean = applicationContext.getBean(HowAreYouService.class);
+        assertNotNull(bean.getHelloService());
+    }
+
+    @Test
+    public void shouldInjectWithoutSetter() {
+        var applicationContext = new PackageScanningApplicationContext(MOCK_PACKAGE);
+        var bean = applicationContext.getBean(HelloService.class);
+        assertNotNull(bean.getHowAreYouService());
+    }
+
+    @Test
+    public void shouldThrowNoSuchBeanExceptionIfCantFindBeenForInject() {
+       assertThrows(NoSuchBeanException.class,
+               () -> new PackageScanningApplicationContext(NO_SUCH_BEAN_TO_INJECT_PACKAGE));
+    }
+
+    @Test
+    public void shouldThrowNoUniqueBeanExceptionIfCantFindBeenForInject() {
+        assertThrows(NoUniqueBeanException.class, () -> new PackageScanningApplicationContext(NO_UNIQUE_BEAN_TO_INJECT_PACKAGE));
     }
 }
