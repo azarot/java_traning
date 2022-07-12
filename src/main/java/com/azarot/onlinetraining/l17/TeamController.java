@@ -9,6 +9,6 @@ public class TeamController {
 
     @GetMapping("/people/max")
     public User getMax() {
-
+        return null;
     }
 }

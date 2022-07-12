@@ -1,17 +1,18 @@
 package com.azarot.homework.hw15.context;
 
 import com.azarot.homework.hw15.annotation.BoboBean;
+import com.azarot.homework.hw15.annotation.Inject;
 import com.azarot.homework.hw15.exception.NoSuchBeanException;
 import com.azarot.homework.hw15.exception.NoUniqueBeanException;
 import org.reflections.Reflections;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.lang.reflect.*;
+import java.util.*;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
+
+import static com.azarot.homework.hw15.utils.StringUtils.lowerCaseFirstCharacter;
+import static com.azarot.homework.hw15.utils.StringUtils.upperCaseFirstCharacter;
 
 
 public class PackageScanningApplicationContext implements ApplicationContext {
@@ -36,7 +37,58 @@ public class PackageScanningApplicationContext implements ApplicationContext {
 
 
         //3: set autowired fields
-        //TODO: implement it
+        injectFields();
+    }
+
+    private void injectFields() {
+        for (var instance : container.values()) {
+            Class<?> instanceClass = instance.getClass();
+
+            Arrays.stream(instanceClass.getDeclaredFields())
+                    .filter(f -> f.getAnnotationsByType(Inject.class).length != 0)
+                    .forEach(insertFields(instance, instanceClass));
+
+        }
+    }
+
+    private Consumer<Field> insertFields(Object instance, Class<?> instanceClass) {
+        return f -> {
+            var setterName = "set" + upperCaseFirstCharacter(f.getName());
+            var bean = getBean(f.getType());
+            getSetter(instanceClass, f, setterName).ifPresentOrElse(
+                    setWithSetter(instance, bean),
+                    setDirectlyToField(instance, f, bean)
+            );
+        };
+    }
+
+    private Runnable setDirectlyToField(Object instance, Field field, Object value) {
+        return () -> {
+            try {
+                field.setAccessible(true);
+                field.set(instance, value);
+            } catch (IllegalAccessException e) {
+                throw new RuntimeException(e);
+            }
+        };
+    }
+
+    private Consumer<Method> setWithSetter(Object object, Object value) {
+        return m -> {
+            try {
+                m.invoke(object, value);
+            } catch (IllegalAccessException | InvocationTargetException e) {
+                throw new RuntimeException(e);
+            }
+        };
+    }
+
+    private Optional<Method> getSetter(Class<?> beanClass, Field f, String setterName) {
+        try {
+            return Optional.of(beanClass.getMethod(setterName, f.getType()));
+        } catch (NoSuchMethodException e) {
+            return Optional.empty();
+        }
     }
 
     private void storeBeanInstance(String beanName, Object instance) {
@@ -52,9 +104,7 @@ public class PackageScanningApplicationContext implements ApplicationContext {
     }
 
     private String getDefaultName(Class<?> beanClass) {
-        String simpleName = beanClass.getSimpleName();
-        String firstLetter = simpleName.substring(0, 1);
-        return firstLetter.toLowerCase() + simpleName.substring(1);
+        return lowerCaseFirstCharacter(beanClass.getSimpleName());
     }
 
     private Object createInstance(Constructor<?> constructor) {
