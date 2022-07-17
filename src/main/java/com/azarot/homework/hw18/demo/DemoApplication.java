@@ -14,8 +14,6 @@ public class DemoApplication {
     @Autowired
     TestingService testingService;
 
-
-
     public static void main(String[] args) {
         SpringApplication.run(DemoApplication.class, args);
     }
