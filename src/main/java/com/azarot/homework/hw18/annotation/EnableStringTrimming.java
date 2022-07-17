@@ -1,6 +1,6 @@
 package com.azarot.homework.hw18.annotation;
 
-import com.azarot.homework.hw18.bpp.TrimmedAnnotationBeanPostProcessor;
+import com.azarot.homework.hw18.configuration.StringTrimmingConfiguration;
 import org.springframework.context.annotation.Import;
 
 import java.lang.annotation.ElementType;
@@ -10,6 +10,6 @@ import java.lang.annotation.Target;
 
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-@Import(TrimmedAnnotationBeanPostProcessor.class)
+@Import(StringTrimmingConfiguration.class)
 public @interface EnableStringTrimming {
 }
