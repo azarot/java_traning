@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
 
-@Component
+@Component()
 public class TrimmedAnnotationBeanPostProcessor implements BeanPostProcessor {
 
     @Override
