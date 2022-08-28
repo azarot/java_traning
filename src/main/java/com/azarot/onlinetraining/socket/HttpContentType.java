@@ -1,4 +1,4 @@
-package com.azarot.web.socket;
+package com.azarot.onlinetraining.socket;
 
 public enum HttpContentType {
     HEADER,

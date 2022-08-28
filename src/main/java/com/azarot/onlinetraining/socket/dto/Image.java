@@ -1,4 +1,4 @@
-package com.azarot.web.socket.dto;
+package com.azarot.onlinetraining.socket.dto;
 
 import java.net.URL;
 

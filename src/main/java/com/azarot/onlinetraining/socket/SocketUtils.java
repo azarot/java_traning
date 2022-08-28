@@ -1,4 +1,4 @@
-package com.azarot.web.socket;
+package com.azarot.onlinetraining.socket;
 
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSocket;
