@@ -1,12 +1,12 @@
-package com.azarot.web.socket;
+package com.azarot.onlinetraining.socket;
 
-import com.azarot.web.socket.dto.Image;
+import com.azarot.onlinetraining.socket.dto.Image;
 
 import java.net.Socket;
 import java.net.URL;
 import java.util.List;
 
-import static com.azarot.web.socket.SocketUtils.*;
+import static com.azarot.onlinetraining.socket.SocketUtils.*;
 
 public class NasaImageClient {
     public static void main(String[] args) {
